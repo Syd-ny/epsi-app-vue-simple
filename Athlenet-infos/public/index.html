@@ -103,8 +103,8 @@
 		href="#"
 		v-for="item in menuItems"
 		:key="item.name"
-		:class="{ active: active === item.id }"
-		v-on:click="makeActive(item.id)"
+		:class="{ active: active === item.name }"
+		v-on:click="makeActive(item.name)"
 		>
 		{{item.name}}
 	</a>
@@ -121,9 +121,9 @@ var demo = Vue.createApp({
 		active: "home",
 		menuItems: [
 			{id: 'home', name: 'Home'},
-			{id: 'projects', name: 'Projects'},
-			{id: 'services', name: 'Services'},
-			{id: 'contact', name: 'Contact'},
+			{id: 'athletes_stats', name: 'Athlètes stats'},
+			{id: 'athletes_infos', name: 'Athlètes infos'},
+			{id: 'athletes_specialisations', name: 'Athlètes spécialisations'},
 		]
 	}
 	},
