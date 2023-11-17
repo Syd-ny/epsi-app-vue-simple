@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>calcul du talent des athlètes</title>
+	<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+
+<div id="main">
+	<nav :class="active" v-on:click.prevent>
+		<a
+		href="#"
+		v-for="item in menuItems"
+		:key="item.name"
+		:class="{ active: active === item.name }"
+		v-on:click="makeActive(item.name)"
+		>
+		{{item.name}}
+	</a>
+	<button v-on:click="showAddAthletePopup = true">Ajouter un Athlète</button>
+	</nav>
+	<div v-if="showAddAthletePopup" class="popup">
+		<div class="popup-content">
+			<span class="close" v-on:click="showAddAthletePopup = false">&times;</span>
+			<!-- Formulaire d'ajout d'athlète -->
+			<form v-on:submit.prevent="addAthlete">
+				<!-- Infos générales -->
+				<div v-for="key in infosAthleteKeys" :key="key">
+					<input type="number" v-model="newAthlete.infosAthlete[key]" :placeholder="key">
+				</div>
+
+				<!-- Attributs physiques -->
+				<div v-for="key in attributsPhysiquesKeys" :key="key">
+					<input type="number" v-model="newAthlete.attributsPhysiques[key]" :placeholder="key">
+				</div>
+	
+					<!-- Attributs techniques -->
+				<div v-for="key in attributsTechniquesKeys" :key="key">
+					<input type="number" v-model="newAthlete.attributsTechniques[key]" :placeholder="key">
+				</div>
+
+				<button type="submit">Ajouter</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script src="src/app.js"></script>
+</body>
+</html>
