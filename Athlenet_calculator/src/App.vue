@@ -1,30 +1,46 @@
-<script setup>
-import AddAthleteForm from '/components/AddAthleteForm.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <navigation-menu 
+      :menu-items="menuItems" 
+      :active="active" 
+      @update-active="active = $event">
+    </navigation-menu>
+
+    <button class="submit" @click="showAddAthletePopup = true">Créer un Athlète</button>
+
+    <add-athlete-popup
+      v-if="showAddAthletePopup"
+      :new-athlete="newAthlete"
+      :infos-athlete-keys="infosAthleteKeys"
+      :attributs-physiques-keys="attributsPhysiquesKeys"
+      :attributs-techniques-keys="attributsTechniquesKeys"
+      @close-popup="showAddAthletePopup = false"
+      @add-athlete="addAthlete">
+    </add-athlete-popup>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script>
+import { appData } from './data.js';
+import { makeActive, addAthlete } from './methods.js';
+import NavigationMenu from './components/NavigationMenu.vue';
+import AddAthletePopup from './components/AddAthletePopup.vue';
+
+export default {
+  components: {
+    NavigationMenu,
+    AddAthletePopup
+  },
+  data() {
+      return appData;
+  },
+  methods: {
+    makeActive, // Utilisation de la méthode importée
+    addAthlete  // Utilisation de la méthode importée
+  }
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+</script>
+
+<style>
+/* Styles globaux... */
 </style>
