@@ -3,11 +3,15 @@
 		<div class="popup-content">
 			<button class="submit" @click="$emit('close-popup')">&times;</button>
 			<!-- Formulaire d'ajout d'un club' -->
-			<form @submit.prevent="$emit('add-club', newClub)">
+			<form @submit.prevent="ajouterClub">
 
-				<!-- Attributs physiques -->
-				<div v-for="key in infosClubKeys" :key="key">
-					<input type="number" v-model="newClub.infosClub[key]" :placeholder="key">
+				<div>
+					<label for="nom">Nom du club:</label>
+					<input id="nom" type="text" v-model="newClub.nom">
+				</div>
+				<div>
+					<label for="image">URL de l'image:</label>
+					<input id="image" type="text" v-model="newClub.image">
 				</div>
 
 				<button type="submit">Ajouter</button>
@@ -21,7 +25,33 @@ export default {
   props: {
     Club: Object,
     infosClubKeys: Array,
+  },
+
+  methods: {
+  ajouterClub() {
+    // Envoi des données du club au serveur
+    fetch('http://localhost:3000/ajouter-club', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.newClub)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'ajout du club');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Traiter la réponse du serveur
+      this.$emit('close-popup');
+    })
+    .catch(error => {
+      console.error('Erreur:', error);
+    });
   }
+}
 }
 </script>
 

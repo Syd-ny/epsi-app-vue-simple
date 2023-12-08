@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import appData from './data.js';
 import { makeActive, addClub } from './methods.js';
 import NavigationMenu from './components/NavigationMenu.vue';
 import AddClubPopup from './components/AddClubPopup.vue';
